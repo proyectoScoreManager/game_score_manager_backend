@@ -1,6 +1,9 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import * as dotenv from 'dotenv';
 import {DocumentBuilder, SwaggerModule} from '@nestjs/swagger' ;
+
+dotenv.config();
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -18,7 +21,7 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document);
   
   app.enableVersioning().setGlobalPrefix('api/v1');
-  app.enableCors();
+  app.enableCors({origin:'*',methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',allowedHeaders: 'Content-Type, Authorization'} );
   
   await app.listen(process.env.PORT ?? 3000);
 

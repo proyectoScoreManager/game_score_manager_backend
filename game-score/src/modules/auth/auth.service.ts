@@ -25,8 +25,7 @@ export class AuthService {
         }
 
         validateUser(email:string, password:string) {
-            const user= this.userService
-            .validateUser(email, password)
+            const user= this.userService.validateUser(email, password)
             if(user) {
                 return user;
             }

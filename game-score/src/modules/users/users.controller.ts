@@ -8,6 +8,9 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
 import { Express, Request , Response} from 'express';
+import {JwtAuthGuard} from '../auth/jwt-auth.guard'
+import {RolesGuard} from '../auth/roles.guard'
+import {Roles} from '../auth/roles.decorator'
 
 
 @ApiTags('users')
@@ -76,7 +79,6 @@ export class UsersController {
         return this.usersService.downloadImage(userId, res);
     }
 
-
     @Post()
     @ApiOperation({summary: 'crear un nuevo jugador'})
     @ApiResponse({status: HttpStatus.CREATED, description: 'El jugador ha sido creado'})
@@ -85,17 +87,15 @@ export class UsersController {
         return this.usersService.createUser(data);
     }
 
-
     @Get()
-    //@UseGuards(JwtAuthGuard, RolesGuard)
-    //@Roles('ADMIN', 'PLAYER')
-    //@ApiBearerAuth()
+    @UseGuards(JwtAuthGuard, RolesGuard)
+    @Roles('ADMIN', 'PLAYER')
+    @ApiBearerAuth()
     @ApiOperation({summary: "Get all users"})
     @ApiResponse ({status: HttpStatus.OK, description: "Lista de jugadores"})
     getAllUsers() {
         return this.usersService.getAllUsers();
     }
-
 
     @Get(':userId')
     @ApiOperation({summary: "get user by userId"})
