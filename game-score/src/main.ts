@@ -23,7 +23,7 @@ async function bootstrap() {
   app.enableVersioning().setGlobalPrefix('api/v1');
   app.enableCors({origin:'*',methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',allowedHeaders: 'Content-Type, Authorization'} );
   
-  await app.listen(process.env.PORT ?? 3000);
+  await app.listen(process.env.PORT ?? 3027);
 
 }
 bootstrap();

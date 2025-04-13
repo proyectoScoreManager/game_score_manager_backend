@@ -1,4 +1,6 @@
 import {PrismaClient} from '@prisma/client'
+const dotenv = require('dotenv');
+dotenv.config();
 
 const prisma = new PrismaClient();
 
@@ -10,6 +12,10 @@ async function main(){
     }, 
         {
             name: "PLAYER"
+    },
+
+        {
+        name: "COPROPIETARIO"
     }
 
     ];
